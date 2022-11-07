@@ -1,5 +1,5 @@
 const { Schema, model} = require("mongoose");
-const thoughtsSchema = require("./Thought");
+const thoughtSchema = require("./Thought");
 
 // Schema to create User model
 const userSchema = new Schema(
@@ -16,8 +16,8 @@ const userSchema = new Schema(
             unique: true,
             match: /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/,
         },
-        thoughts: [thoughtsSchema],
-        friends: [userSchema],
+        thoughts: [thoughtSchema],
+        //friends: [this],
     },
     {
         toJSON: {
