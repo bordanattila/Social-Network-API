@@ -1,7 +1,5 @@
 const connection = require("../config/connection");
 const { User, Thought, Reaction } = require("../models");
-// const userData = require("./userData");
-// const thoughtData = require("./thoughtData");
 
 const userData = [
     {
@@ -42,7 +40,7 @@ connection.once("open", async () => {
     await User.deleteMany({});
 
     // Drop existing thoughts
-    // await Thought.deleteMany({});
+    await Thought.deleteMany({});
 
     // Seed database
     await User.insertMany(userData);

@@ -1,12 +1,11 @@
-const { ObjectId } = require("mongoose").Types;
-const { User, Thought, Reaction } = require("../models");
-
-
+const { User } = require("../models");
 
 module.exports = {
+
     //Get all users
     getUsers(req, res) {
         User.find()
+            .select("-__v")
             .then(async (users) => {
                 const userObject = {
                     users,
@@ -18,29 +17,30 @@ module.exports = {
                 return res.status(500).json(err);
             });
     },
+
     // Get single user by _id
     getSingleUser(req, res) {
         User.findOne({ _id: req.params.userId })
             .select("-__v")
-            .lean()
+            .populate("thoughts")
             .then(async (user) =>
                 !user
-                    ? req.status(404).json({ message: "This user does not exist" })
-                    : res.json({
-                        user,
-                    })
+                    ? res.status(404).json({ message: "This user does not exist" })
+                    : res.json(user)
             )
             .catch((err) => {
                 console.log(err);
                 return res.status(500).json(err);
             })
     },
+
     // Create new user
     createUser(req, res) {
         User.create(req.body)
             .then((user) => res.json(user))
             .catch((err) => res.status(500).json(err));
     },
+
     // Update user by _id
     updateUser(req, res) {
         User.findOneAndUpdate(
@@ -58,13 +58,14 @@ module.exports = {
                 res.status(500).json(err)
             });
     },
+
     // Delete user by _id
     deleteUser(req, res) {
-        User.findOneAndDelete({_id: req.params.userId})
-        .then((user) =>
-        !user
-        ? res.status(404).json({ message: "This user does not exist" })
-        : res.status(200).json(user)
-        )
+        User.findOneAndDelete({ _id: req.params.userId })
+            .then((user) =>
+                !user
+                    ? res.status(404).json({ message: "This user does not exist" })
+                    : res.status(200).json(user)
+            )
     }
-}
+};
