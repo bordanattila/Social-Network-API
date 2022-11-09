@@ -1,12 +1,11 @@
-const { Schema, model} = require("mongoose");
-const Thought = require("./Thought");
+const { Schema, model } = require("mongoose");
 
 // Schema to create User model
-const userSchema = new Schema(
+const usersSchema = new Schema(
     {
         username: {
             type: String,
-            required: true, 
+            required: true,
             unique: true,
             trim: true,
         },
@@ -20,7 +19,7 @@ const userSchema = new Schema(
             type: Schema.Types.ObjectId,
             ref: "thought"
         }],
-        //friends: [this],
+        friends: [this],
     },
     {
         toJSON: {
@@ -31,6 +30,6 @@ const userSchema = new Schema(
     }
 );
 
-const User = model("user", userSchema);
+const User = model("user", usersSchema);
 
 module.exports = User;

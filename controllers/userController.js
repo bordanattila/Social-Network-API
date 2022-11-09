@@ -67,5 +67,42 @@ module.exports = {
                     ? res.status(404).json({ message: "This user does not exist" })
                     : res.status(200).json(user)
             )
+    },
+
+    // Add a friend
+    addFriend(req, res) {
+        User.findOneAndUpdate(
+            { _id: req.params.userId },
+            { $addToSet: { friends: req.params.friendId } },
+            { runValidators: true, new: true },
+            // { new: true }
+        )
+            .then((user) =>
+                !user
+                    ? res.status(404).json({ message: "This user does not exist" })
+                    : res.json(user)
+            )
+            .catch((err) => {
+                console.log(err);
+                res.status(500).json(err)
+            });
+    },
+
+    // Delete a frined
+    deleteFriend(req, res) {
+        User.findOneAndUpdate(
+            { _id: req.params.userId },
+            { $pull: { friends: req.params.friendId } },
+            { runValidators: true, new: true },
+        )
+            .then((user) =>
+                !user
+                    ? res.status(404).json({ message: "This user does not exist" })
+                    : res.json(user)
+            )
+            .catch((err) => {
+                console.log(err);
+                res.status(500).json(err)
+            });
     }
 };

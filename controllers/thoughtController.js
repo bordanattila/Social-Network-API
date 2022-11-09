@@ -1,11 +1,10 @@
 const { User, Thought } = require("../models");
-// const { virtual } = require("../models/Reaction");
-const { schema } = require("../models/Thought");
 
-const reactionCount = schema.virtual("reactionCount");
-reactionCount.get(async function () {
-        return this.reactions.length;
-    })
+// Create virtuals
+// const myvirtual = Thought.virtual("reactionCount");
+// const reactionCount = myvirtual.get(async function () {
+//         return this.reactions.length;
+//     })
 
 module.exports = {
 
@@ -13,13 +12,14 @@ module.exports = {
     getThoughts(req, res) {
         Thought.find()
             .select("-__v")
-            .then(async (thought) => {
-                const thoughtObject = {
-                    thought,
-                    reactionCount: await reactionCount(),
-                };
-                return res.json(thoughtObject);
-            })
+            .then((thought) => res.json(thought))
+            // .then(async (thought) => {
+            //     const thoughtObject = {
+            //         thought,
+            //         // reactionCount: await reactionCount(),
+            //     };
+            //     return res.json(thoughtObject);
+            // })
             .catch((err) => {
                 console.log(err);
                 return res.status(500).json(err);;

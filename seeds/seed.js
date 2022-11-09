@@ -16,21 +16,6 @@ const userData = [
     }
 ];
 
-const thoughtData = [
-    {
-        thoughtText: "Spider-Man",
-        username: "Parker"
-    },
-    {
-        thoughtText: "Iron-Man",
-        username: "Stark",
-    },
-    {
-        thoughtText: "Captain America",
-        username: "Rogers",
-    }
-];
-
 connection.on("error", (err) => err);
 
 connection.once("open", async () => {
@@ -44,7 +29,6 @@ connection.once("open", async () => {
 
     // Seed database
     await User.insertMany(userData);
-    // await Thought.insertMany(thoughtData);
 
     console.info('Seeding complete! 🌱');
     process.exit(0);

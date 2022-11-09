@@ -111,7 +111,7 @@ Create a virtual called `friendCount` that retrieves the length of the user's `f
 
 **Schema Settings**:
 
-Create a virtual called `reactionCount` that retrieves the length of the thought's `reactions` array field on query.
+Create a virtual called `reactionC ount` that retrieves the length of the thought's `reactions` array field on query.
 
 ---
 
