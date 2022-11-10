@@ -1,4 +1,4 @@
-const { User } = require("../models");
+const { User, Thought } = require("../models");
 
 module.exports = {
 
@@ -65,8 +65,10 @@ module.exports = {
             .then((user) =>
                 !user
                     ? res.status(404).json({ message: "This user does not exist" })
-                    : res.status(200).json(user)
-            )
+                    : Thought.find({username: user.username}).remove()
+                    
+                    )
+                    res.status(200).json({ message: "The user is deleted" })
     },
 
     // Add a friend
@@ -88,7 +90,7 @@ module.exports = {
             });
     },
 
-    // Delete a frined
+    // Delete a friend
     deleteFriend(req, res) {
         User.findOneAndUpdate(
             { _id: req.params.userId },

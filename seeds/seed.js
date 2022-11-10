@@ -1,5 +1,5 @@
 const connection = require("../config/connection");
-const { User, Thought, Reaction } = require("../models");
+const { User, Thought } = require("../models");
 
 const userData = [
     {
@@ -7,8 +7,8 @@ const userData = [
         email: "parker@mail.com",
     },
     {
-        username: "Start",
-        email: "startk@mail.com",
+        username: "Stark",
+        email: "stark@mail.com",
     },
     {
         username: "Rogers",

@@ -11,6 +11,6 @@ app.use(routes);
 
 db.once("open", () => {
     app.listen(PORT, () => {
-        console.log(`Server is litening at https://localhost:${PORT}`);
+        console.log(`Server is listening at https://localhost:${PORT}`);
     })
 });
